@@ -17,13 +17,13 @@ import pers.sakorua.config.TelegramBotConfig;
 @Configuration
 public class MyBot extends TelegramWebhookBot {
 
+//记得参考https://github.com/Tuit0/webhook/
 
     private static final Logger logger = LoggerFactory.getLogger(MyBot.class);
 
     private final TelegramBotConfig telegramBotConfig;
 
     public MyBot(TelegramBotConfig telegramBotConfig) {
-        logger.info("TelegramBot created, telegramBotConfig = {}", telegramBotConfig);
         this.telegramBotConfig = telegramBotConfig;
     }
 
@@ -39,9 +39,9 @@ public class MyBot extends TelegramWebhookBot {
 
     @Override
     public BotApiMethod<?> onWebhookUpdateReceived(Update update) {
-        logger.info("onUpdateReceived");
 
         if (update.hasMessage() && update.getMessage().hasText()) {
+
             logger.info("onUpdateReceived from user {} the text message: {}",
                     update.getMessage().getFrom().getFirstName(),
                     update.getMessage().getText());

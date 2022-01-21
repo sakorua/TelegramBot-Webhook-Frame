@@ -27,13 +27,18 @@ public class WebhookController {
 
     @Autowired
     public WebhookController(TelegramBotConfig telegramBotConfig) {
-        logger.info("WebhookController created, telegramBotConfig = {}", telegramBotConfig);
         this.telegramBot = new MyBot(telegramBotConfig);
     }
 
     @PostMapping("/")
     public BotApiMethod<?> onUpdateReceived(@RequestBody Update update) {
-        logger.info("WebhookController.onUpdateReceived called, update = {}", update);
+        /**
+         * @author SaKoRua
+         * @Description //TODO Bot收到信息之后 先被此方法接收 再被Bot中的onWebhookUpdateReceived接收
+         * @Date 10:39 AM 2022/1/21
+         * @Param
+         * @return
+         **/
         return telegramBot.onWebhookUpdateReceived(update);
     }
 
