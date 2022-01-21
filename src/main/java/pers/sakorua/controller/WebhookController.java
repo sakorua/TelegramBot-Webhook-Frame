@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.generics.TelegramBot;
 import org.telegram.telegrambots.meta.generics.WebhookBot;
 import pers.sakorua.bots.MyBot;
 import pers.sakorua.config.TelegramBotConfig;
+import pers.sakorua.service.BotService;
 
 /**
  * @author SaKoRua
@@ -30,6 +32,9 @@ public class WebhookController {
         this.telegramBot = new MyBot(telegramBotConfig);
     }
 
+    @Autowired
+    private BotService botService;
+
     @PostMapping("/")
     public BotApiMethod<?> onUpdateReceived(@RequestBody Update update) {
         /**
@@ -39,7 +44,13 @@ public class WebhookController {
          * @Param
          * @return
          **/
-        return telegramBot.onWebhookUpdateReceived(update);
+
+        String msgText = update.getMessage().getText();
+        if (msgText.matches("/bin \\d{6}\\b")) {
+            return botService.checkBin(update);
+        }
+
+        return null;
     }
 
     @GetMapping
