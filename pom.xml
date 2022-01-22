@@ -13,6 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>TelegramBot-webhook</name>
     <description>TelegramBot-webhook</description>
+    <packaging>jar</packaging>
     <properties>
         <java.version>11</java.version>
     </properties>
@@ -51,7 +52,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
